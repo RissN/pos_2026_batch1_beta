@@ -52,6 +52,7 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
                                     <tr>
                                         <th colspan="4">Total</th>
                                         <td id="modal-total">Rp. 0</td>
+                                        <input type="hidden" id="total-input">
                                     </tr>
                                     <tr>
                                         <th colspan="4">Pay</th>
@@ -60,6 +61,7 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
                                     <tr>
                                         <th colspan="4">Change</th>
                                         <td id="change-amount">Rp. 0</td>
+                                        <input type="hidden" id="change-input">
                                     </tr>
                                 </tfoot>
                             </table>
@@ -77,17 +79,30 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
 <script>
     const btnSave = document.getElementById('btn-save-order');
     btnSave.addEventListener('click', () => {});
-    btnSave.addEventListener('click', function() {
+    btnSave.addEventListener('click', async function() {
+        let cart = getCart()
         let payload = {
             order_date: document.getElementById('modal-order-date').value,
             order_date: document.getElementById('modal-order-date').value,
             customer_name: document.getElementById('customer_name').value,
-            order_amount: document.getElementById('modal-total').value,
-            order_change: document.getElementById('change-amount').value,
+            order_amount: document.getElementById('total-input').value,
+            order_change: document.getElementById('change-input').value,
             order_pay: document.getElementById('pay-amount').value,
-            cart,
+            cart: cart,
         }
-        
+        try {
+            const res = await fetch("save_transaction.php", {
+                method: "POST",
+                headers: {"Content-Type" : "application/json"},
+                body: JSON.stringify(payload)
+            });
+            const result = await res.json();
+            console.log(result);
+            localStorage.removeItem('pos_cart');
+        } catch (error) {
+            console.log(error)
+            alert('Terjadi kesalahan saat menyimpan transaksi!');
+        }
     });
 
     function calculateCartSummary() {
@@ -120,6 +135,7 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
         const cart = getCart();
         const tbody = document.querySelector("#modal-order-items");
         const totalModal = document.querySelector('#modal-total');
+        const totalInput = document.getElementById('total-input');
         tbody.innerHTML = '';
         cart.forEach((item, index) => {
             const subtotal = item.price * item.qty;
@@ -135,6 +151,7 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
         });
         const summary = calculateCartSummary();
         totalModal.textContent = formatRupiah(summary.total);
+        totalInput.value = summary.total;
     }
     document.querySelector("#pay-amount").addEventListener('input', function() {
         const pay = parseInt(this.value) || 0;
@@ -142,5 +159,6 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
         const change = pay - summary.total;
 
         document.querySelector('#change-amount').textContent = change >= 0 ? formatRupiah(change) : 'Rp 0';
+        document.getElementById('change-input').value = change;
     });
 </script>
