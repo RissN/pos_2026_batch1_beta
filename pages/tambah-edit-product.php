@@ -61,50 +61,69 @@ if (isset($_GET['id'])) {
 ?>
 <div class="card">
     <div class="card-header">
-        <h1>Products</h1>
+        <div class="card-title">
+            <h4><?php echo (isset($_GET['id'])) ? 'Ubah ' : 'Tambah ' ?>Produk</h4>
+        </div>
     </div>
-    <div class="card-body">
-        <form action="" method="post" enctype="multipart/form-data">
-            <label for="" class="form-label">Category Name</label>
-            <select name="category_id" class="form-select" id="" required>
-                <option value="">--Choose Category--</option>
-                <?php
-                foreach ($rowCategories as $v) {
-                    if ($v['category_name'] !== 'All Menus') {
-                ?>
-                        <option value="<?php echo $v['id']; ?>" <?php echo isset($_GET['id']) && $v['id'] == $rowProduct['category_id'] ? 'selected' : ''; ?>><?php echo $v['category_name']; ?></option>
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="card-body">
+            <div class="form-group">
+                <label for="" class="form-label">Kategori Produk</label>
+                <select name="category_id" class="form-select" id="" required>
+                    <option value="">--Pilih Kategori--</option>
+                    <?php
+                    foreach ($rowCategories as $v) {
+                        if ($v['category_name'] !== 'All Menus') {
+                    ?>
+                            <option value="<?php echo $v['id']; ?>" <?php echo isset($_GET['id']) && $v['id'] == $rowProduct['category_id'] ? 'selected' : ''; ?>><?php echo $v['category_name']; ?></option>
+                        <?php
+                        }
+                        ?>
                     <?php
                     }
                     ?>
-                <?php
-                }
-                ?>
-            </select>
-            <label for="" class="form-label">Product Name</label>
-            <input type="text" class="form-control" value="<?php echo isset($_GET['id']) ? $rowProduct['product_name'] : '' ?>" name="product_name">
-            <label for="" class="form-label">Photo</label>
-            <div class="my-2">
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="" class="form-label">Nama Produk</label>
+                <input placeholder="Masukkan nama produk" required type="text" class="form-control" value="<?php echo isset($_GET['id']) ? $rowProduct['product_name'] : '' ?>" name="product_name">
+            </div>
+            <div class="form-group">
                 <?php
                 if (isset($_GET['id'])) {
-                ?>
+                    ?>
                     <img src="asset/img/<?php echo $rowProduct['product_photo'] ?>" class="rounded" width="120" alt="">
-                <?php
+                    <?php
                 }
                 ?>
             </div>
-            <input type="file" class="form-control" name="product_photo">
-            <label for="" class="form-label">Price</label>
-            <input type="number" class="form-control" value="<?php echo isset($_GET['id']) ? $rowProduct['product_price'] : '' ?>" name="product_price">
-            <label for="" class="form-label">Stock</label>
-            <input type="number" class="form-control" value="<?php echo isset($_GET['id']) ? $rowProduct['qty'] : '' ?>" name="qty">
-            <label for="" class="form-label">Product Description</label>
-            <textarea name="product_description" class="form-control" cols="30" rows="5"></textarea>
-            <label for="" class="form-label">Status Product</label>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" name="is_active" <?php echo (isset($_GET['id']) && $rowProduct['is_active'] == 1) ? 'checked' : '' ?>>
-                <label class="form-check-label" for="switchCheckChecked">Default switch checkbox input</label>
+            <div class="form-group">
+                <label for="" class="form-label">Foto *</label>
+                <input type="file" class="form-control" name="product_photo" required>
             </div>
-            <button type="submit" class="btn btn-primary my-2" name="<?php echo isset($_GET['id']) ? 'edit' : 'add' ?>"><?php echo isset($_GET['id']) ? 'Edit' : 'Add' ?></button>
-        </form>
-    </div>
+            <div class="form-group">
+                <label for="" class="form-label">Harga</label>
+                <input placeholder="Masukkan harga" type="number" class="form-control" value="<?php echo isset($_GET['id']) ? $rowProduct['product_price'] : '' ?>" name="product_price">
+            </div>
+            <div class="form-group">
+                <label for="" class="form-label">Stok</label>
+                <input placeholder="Masukkan stok produk" type="number" class="form-control" value="<?php echo isset($_GET['id']) ? $rowProduct['qty'] : '' ?>" name="qty">
+            </div>
+            <div class="form-group">
+                <label for="" class="form-label">Product Description</label>
+                <textarea placeholder="Masukkan deskripsi produk" name="product_description" class="form-control" cols="30" rows="5"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="" class="form-label">Status Product</label>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" name="is_active" <?php echo (isset($_GET['id']) && $rowProduct['is_active'] == 1) ? 'checked' : '' ?>>
+                    <label class="form-check-label" for="switchCheckChecked">Default switch checkbox input</label>
+                </div>
+            </div>
+        </div>
+        <div class="card-action">
+            <button type="submit" class="btn btn-primary my-2" name="<?php echo isset($_GET['id']) ? 'edit' : 'add' ?>"><?php echo isset($_GET['id']) ? 'Simpan Perubahan' : 'Simpan' ?></button>
+            <a href="?page=product" class="btn btn-danger">Batalkan</a>
+        </div>
+    </form>
 </div>

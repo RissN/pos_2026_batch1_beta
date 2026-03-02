@@ -8,7 +8,7 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Transaksi</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -20,7 +20,7 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
                         </div>
                         <div class="col-md-4">
                             <label for="" class="form-label">Customer Name</label>
-                            <input type="text" class="form-control" required>
+                            <input type="text" class="form-control" id="customer_name" required>
                         </div>
                         <div class="col-md-4">
                             <label for="" class="form-label">Order Date</label>
@@ -33,11 +33,10 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Product Name</th>
-                                        <th>QTY</th>
-                                        <th>Order Price</th>
-                                        <th>Order Subtotal</th>
-                                        <th>Counting</th>
+                                        <th>Nama Produk</th>
+                                        <th>Qty</th>
+                                        <th>Harga</th>
+                                        <th>Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody id="modal-order-items">
@@ -51,15 +50,15 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th colspan="5">Total</th>
+                                        <th colspan="4">Total</th>
                                         <td id="modal-total">Rp. 0</td>
                                     </tr>
                                     <tr>
-                                        <th colspan="5">Pay</th>
+                                        <th colspan="4">Pay</th>
                                         <td><input type="number" id="pay-amount" class="form-control" value="0" required></td>
                                     </tr>
                                     <tr>
-                                        <th colspan="5">Change</th>
+                                        <th colspan="4">Change</th>
                                         <td id="change-amount">Rp. 0</td>
                                     </tr>
                                 </tfoot>
@@ -76,6 +75,21 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
     </div>
 </div>
 <script>
+    const btnSave = document.getElementById('btn-save-order');
+    btnSave.addEventListener('click', () => {});
+    btnSave.addEventListener('click', function() {
+        let payload = {
+            order_date: document.getElementById('modal-order-date').value,
+            order_date: document.getElementById('modal-order-date').value,
+            customer_name: document.getElementById('customer_name').value,
+            order_amount: document.getElementById('modal-total').value,
+            order_change: document.getElementById('change-amount').value,
+            order_pay: document.getElementById('pay-amount').value,
+            cart,
+        }
+        
+    });
+
     function calculateCartSummary() {
         const cart = getCart();
         let subtotal = 0;
@@ -116,7 +130,6 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
             <td>${item.qty}</td>
             <td>${formatRupiah(item.price)}</td>
             <td>${formatRupiah(subtotal)}</td>
-            <td></td>
             </tr>
             `;
         });
@@ -129,75 +142,5 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
         const change = pay - summary.total;
 
         document.querySelector('#change-amount').textContent = change >= 0 ? formatRupiah(change) : 'Rp 0';
-    });
-
-    document.getElementById('btn-save-order').addEventListener('click', function() {
-
-        const cart = getCart();
-        if (cart.length === 0) {
-            alert('Cart kosong!');
-            return;
-        }
-
-        //validasi
-        for (const item of cart) {
-            if (item.qty > item.stock) {
-                alert('Stok ' + item.name + ' tidak mencukupi');
-                return;
-            }
-        }
-
-        const customerName = document.querySelector('input[required]').value || null;
-        const payAmount = parseInt(document.getElementById('pay-amount').value) || 0;
-
-        const summary = calculateCartSummary();
-        const change = payAmount - summary.total;
-
-        if (change < 0) {
-            alert('Uang pembayaran kurang!');
-            return;
-        }
-
-        const payload = {
-            order_code: document.getElementById('modal-order-code').value,
-            customer_name: customerName,
-            order_date: document.getElementById('modal-order-date').value,
-            order_amount: summary.total,
-            pay_amount: payAmount,
-            order_change: change,
-            items: cart
-        };
-
-        fetch('save_order.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            })
-            .then(res => res.json())
-            .then(res => {
-                if (res.status === 'success') {
-
-                    //clar card nya
-                    localStorage.removeItem('pos_cart');
-                    renderCart();
-
-                    // tutp modal
-                    const modal = bootstrap.Modal.getOrCreateInstance(
-                        document.getElementById('exampleModal')
-                    );
-                    modal.hide();
-                    location.reload();
-
-                    //reset input
-                    document.getElementById('pay-amount').value = 0;
-                    document.getElementById('change-amount').textContent = 'Rp 0';
-
-                    alert('Order berhasil disimpan!');
-                } else {
-                    alert(res.message);
-                }
-            });
     });
 </script>

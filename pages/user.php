@@ -12,16 +12,20 @@ if (isset($_GET['idDel'])) {
 
 <div class="card table-responsive">
     <div class="card-header">
-        <h1>Users</h1>
+        <div class="card-title">
+            <h4>Data Pengguna</h4>
+        </div>
     </div>
     <div class="card-body">
-        <a href="?page=tambah-edit-user" class="btn btn-primary my-2">Add</a>
+        <div align="right">
+            <a href="?page=tambah-edit-user" class="btn btn-primary my-2">Buat Pengguna Baru</a>
+        </div>
         <table class="table table-bordered text-center">
             <tr>
                 <th>No</th>
                 <th>Email</th>
                 <th>Username</th>
-                <th>Actions</th>
+                <th>Tindakan</th>
             </tr>
             <?php
             $no = 1;
@@ -32,9 +36,9 @@ if (isset($_GET['idDel'])) {
                     <td><?php echo $v['email'] ?></td>
                     <td><?php echo $v['name'] ?></td>
                     <td>
-                        <a href="?page=tambah-edit-user&id=<?php echo base64_encode($v['id'])?>" class="btn btn-success btn-sm">Edit</a>
+                        <a href="?page=tambah-edit-user&id=<?php echo base64_encode($v['id'])?>" class="btn btn-success btn-sm">Ubah</a>
                         <form action="?page=user&idDel=<?php echo $v['id'] ?>" method="post" onclick="return confirm('Yakin ingin menghapus akun?')" class="d-inline">
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                         </form>
                     </td>
                 </tr>

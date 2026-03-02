@@ -14,19 +14,23 @@ if (isset($_GET['idDel'])) {
 ?>
 <div class="card table-responsive">
     <div class="card-header">
-        <h1>Products</h1>
+        <div class="card-title">
+            <h4>Produk</h4>
+        </div>
     </div>
     <div class="card-body">
-        <a href="?page=tambah-edit-product" class="btn btn-primary my-2">Add</a>
+        <div align="right">
+            <a href="?page=tambah-edit-product" class="btn btn-primary my-2">Tambah Produk Baru</a>
+        </div>
         <table class="table table-bordered text-center">
             <tr>
                 <th>No</th>
-                <th>Category Name</th>
-                <th>Product Name</th>
-                <th>Photo</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Actions</th>
+                <th>Kategori</th>
+                <th>Nama Produk</th>
+                <th>Foto</th>
+                <th>Harga</th>
+                <th>Stok</th>
+                <th>Tindakan</th>
             </tr>
             <?php
             $no = 1;
@@ -40,9 +44,9 @@ if (isset($_GET['idDel'])) {
                     <td>Rp. <?php echo number_format($v['product_price'], 2, ',', '.')?></td>
                     <td><?php echo $v['qty']?></td>
                     <td>
-                        <a href="?page=tambah-edit-product&id=<?php echo base64_encode($v['id']) ?>" class="btn btn-success btn-sm">Edit</a>
+                        <a href="?page=tambah-edit-product&id=<?php echo base64_encode($v['id']) ?>" class="btn btn-success btn-sm">Ubah</a>
                         <form action="?page=product&idDel=<?php echo $v['id'] ?>" method="post" onclick="return confirm('Yakin ingin menghapus produk?')" class="d-inline">
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                         </form>
                     </td>
                 </tr>

@@ -33,17 +33,28 @@ if (isset($_GET['id'])) {
 ?>
 <div class="card">
     <div class="card-header">
-        <h1><?php echo (isset($_GET['id'])) ? 'Edit ' : 'Add ' ?>User</h1>
+        <div class="card-title">
+            <h4><?php echo (isset($_GET['id'])) ? 'Edit ' : 'Tambah ' ?>Pengguna</h4>
+        </div>
     </div>
-    <div class="card-body">
-        <form action="" method="post">
-            <label for="" class="form-label">User Name</label>
-            <input type="text" class="form-control" name="name" value="<?php echo (isset($_GET['id'])) ? $row['name'] : '' ?>" required>
-            <label for="" class="form-label">Email</label>
-            <input type="email" class="form-control" name="email" value="<?php echo (isset($_GET['id'])) ? $row['email'] : '' ?>" required>
-            <label for="" class="form-label">Password</label>
-            <input type="password" class="form-control" name="password">
-            <button type="submit" class="btn btn-primary my-2" name="<?php echo (isset($_GET['id'])) ? 'edit' : 'add' ?>"><?php echo (isset($_GET['id'])) ? 'Save' : 'Add' ?></button>
-        </form>
-    </div>
+    <form action="" method="post">
+        <div class="card-body">
+            <div class="form-group">
+                <label for="" class="form-label">Nama Lengkap *</label>
+                <input placeholder="Masukkan nama lengkap" type="text" class="form-control" name="name" value="<?php echo (isset($_GET['id'])) ? $row['name'] : '' ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="" class="form-label">Email *</label>
+                <input placeholder="cth: admin@gmail.com" type="email" class="form-control" name="email" value="<?php echo (isset($_GET['id'])) ? $row['email'] : '' ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="" class="form-label">Password *</label>
+                <input placeholder="Masukkan password" type="password" class="form-control" name="password" <?php echo (!isset($_GET['id'])) ? 'required' : '' ?>>
+            </div>
+        </div>
+        <div class="card-action">
+            <button type="submit" class="btn btn-primary my-2" name="<?php echo (isset($_GET['id'])) ? 'edit' : 'add' ?>"><?php echo (isset($_GET['id'])) ? 'Simpan Perubahan' : 'Tambah' ?></button>
+            <a href="?page=user" class="btn btn-danger">Batalkan</a>
+        </div>
+    </form>
 </div>
