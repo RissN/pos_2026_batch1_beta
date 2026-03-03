@@ -93,12 +93,29 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
         try {
             const res = await fetch("save_transaction.php", {
                 method: "POST",
-                headers: {"Content-Type" : "application/json"},
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify(payload)
             });
             const result = await res.json();
             console.log(result);
             localStorage.removeItem('pos_cart');
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "success",
+                title: result.message || "Transaksi baru berhasil",
+            });
         } catch (error) {
             console.log(error)
             alert('Terjadi kesalahan saat menyimpan transaksi!');
