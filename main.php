@@ -148,7 +148,7 @@ checkLogin();
                     </div>
                 </div>
             </div>
-            <?php include "inc/footer.php";?>
+            <?php include "inc/footer.php"; ?>
         </div>
     </div>
     </div>
@@ -171,6 +171,7 @@ checkLogin();
 
     <!-- Kaiadmin JS -->
     <script src="asset/template/assets/js/kaiadmin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 

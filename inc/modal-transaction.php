@@ -76,6 +76,7 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     const btnSave = document.getElementById('btn-save-order');
     btnSave.addEventListener('click', () => {});

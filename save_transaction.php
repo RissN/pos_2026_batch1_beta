@@ -9,6 +9,7 @@ if (!$data) {
         'status' => false,
         'message' => "Invalid json"
     ]);
+    exit;
 }
 $order_code = $data->order_code;
 $order_date = $data->order_date;
