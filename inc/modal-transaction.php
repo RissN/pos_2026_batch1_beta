@@ -82,7 +82,7 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
     btnSave.addEventListener('click', async function() {
         let cart = getCart()
         let payload = {
-            order_date: document.getElementById('modal-order-date').value,
+            order_code: document.getElementById('modal-order-code').value,
             order_date: document.getElementById('modal-order-date').value,
             customer_name: document.getElementById('customer_name').value,
             order_amount: document.getElementById('total-input').value,

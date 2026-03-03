@@ -2,9 +2,9 @@
 header("Content-Type: application/json");
 include 'config/koneksi.php';
 
-$data = json_decode(file_get_contents("php://input, true"));
+$data = json_decode(file_get_contents("php://input", true));
 
-if ($data) {
+if (!$data) {
     echo json_encode([
         'status' => false,
         'message' => "Invalid json"
@@ -13,13 +13,13 @@ if ($data) {
 $order_code = $data->order_code;
 $order_date = $data->order_date;
 $customer_name = $data->customer_name;
-$order_amount = $data->order_amount;  
-$order_change = $data->order_change;  
-$order_pay = $data->order_pay;  
+$order_amount = $data->order_amount;
+$order_change = $data->order_change;
+$order_pay = $data->order_pay;
 $cart = $data->cart;
 
 try {
-    $insertOrder = mysqli_query($koneksi, "INSERT INTO orders (order_code, order_date, customer_name, order_amount, order_change, order_status) VALUE ('$order_code', '$order_date', '$customer_name', '$order_amount', '$order_change', 1)");
+    $insertOrder = mysqli_query($koneksi, "INSERT INTO orders (order_code, order_date, customer_name, order_amount, order_change, order_status) VALUES ('$order_code', '$order_date', '$customer_name', '$order_amount', '$order_change', 1)");
     if (!$insertOrder) {
         throw new Exception("Gagal melakukan insert order");
     }
@@ -30,7 +30,7 @@ try {
         $product_price = $item->price;
         $subtotal_product = $item->subtotal;
 
-        $insertOrderDetails = mysqli_query($koneksi, "INSERT INTO order_details (order_id, product_id, qty, order_price, order_subtotal) VALUE ('$id_order', '$product_id', '$product_qty', '$product_price', '$subtotal_product')");
+        $insertOrderDetails = mysqli_query($koneksi, "INSERT INTO order_details (order_id, product_id, qty, order_price, order_subtotal) VALUES ('$id_order', '$product_id', '$product_qty', '$product_price', '$subtotal_product')");
         if (!$insertOrderDetails) {
             throw new Exception("Gagal menyimpan detail order");
         }
@@ -47,4 +47,3 @@ try {
         "message" => $th->getMessage(),
     ]);
 }
-?>
