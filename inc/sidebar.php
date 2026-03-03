@@ -128,7 +128,12 @@
                     <ul class="nav nav-collapse">
                         <li>
                             <a href="?page=transaction">
-                                <span class="sub-item">Transaction</span>
+                                <span class="sub-item">Transaksi</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="?page=report-sales">
+                                <span class="sub-item">Laporan Penjualan</span>
                             </a>
                         </li>
                     </ul>
