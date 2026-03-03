@@ -117,6 +117,21 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
                 icon: "success",
                 title: result.message || "Transaksi baru berhasil",
             });
+            Swal.fire({
+                title: "Transaksi berhasil!",
+                text: 'Order Code: ' + result.order_id,
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonText: "Cetak Struk",
+                cancelButtonText: "Transaksi Baru",
+                denyButtonText: `Don't save`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.open('print_struk.php?order_code-' + result.order_code, '_blank');
+                } else {
+                    location.reload();
+                }
+            });
         } catch (error) {
             console.log(error)
             alert('Terjadi kesalahan saat menyimpan transaksi!');
