@@ -17,7 +17,7 @@ function addToCart(product) {
   } else {
     cart.push({
       ...product,
-      qty: qty,
+      qty: 1,
       subtotal: product.price * 1,
     });
   }
