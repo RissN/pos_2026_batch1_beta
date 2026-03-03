@@ -124,10 +124,9 @@ $tempOrderCode = 'INV-' . date('Ymd-His');
                 showCancelButton: true,
                 confirmButtonText: "Cetak Struk",
                 cancelButtonText: "Transaksi Baru",
-                denyButtonText: `Don't save`
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.open('print_struk.php?order_code-' + result.order_code, '_blank');
+            }).then((res) => {
+                if (res.isConfirmed) {
+                    window.open('print-struk.php?order_code=' + result.order_id, '_blank');
                 } else {
                     location.reload();
                 }
