@@ -8,7 +8,7 @@ $no = 1;
         <h1>Laporan Penjualan</h1>
     </div>
     <div class="card-body table-responsive">
-        <form action="" method="post">
+        <form action="inc/proses-print.php" method="post">
             <div class="row my-2">
                 <div class="col-5">
                     <label for="" class="form-label">Tanggal Awal</label>
@@ -19,7 +19,7 @@ $no = 1;
                     <input type="datetime-local" class="form-control" name="end_date" required>
                 </div>
                 <div class="col-2 d-flex align-items-end">
-                    <button type="submit" class="btn btn-danger btn-sm">Cetak PDF</button>
+                    <button type="submit" class="btn btn-danger">Cetak PDF</button>
                 </div>
             </div>
         </form>
@@ -38,7 +38,7 @@ $no = 1;
                     <td><?= $no++ ?></td>
                     <td><?= $v['order_code'] ?></td>
                     <td><?= $v['order_date'] ?></td>
-                    <td>Rp. <?= number_format($v['order_pay'])?></td>
+                    <td>Rp. <?= number_format($v['order_pay']) ?></td>
                     <td>Rp. <?= number_format($v['order_amount']) ?></td>
                 </tr>
             <?php
