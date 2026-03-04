@@ -116,8 +116,8 @@ $dataOrderDetails = mysqli_fetch_all($detailOrders, MYSQLI_ASSOC);
                         <?php echo $item['product_name'] ?>
                     </div>
                     <div class="item-detail">
-                        <span><?= $item['qty'] ?> x <?= $item['order_price'] ?></span>
-                        <span><?= $item['order_subtotal'] ?></span>
+                        <span><?= $item['qty'] ?> x <?= number_format($item['order_price']) ?></span>
+                        <span><?= number_format($item['order_subtotal']) ?></span>
                     </div>
                 </div>
             <?php endforeach; ?>

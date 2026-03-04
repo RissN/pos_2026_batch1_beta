@@ -99,7 +99,7 @@ if (isset($_GET['id'])) {
             </div>
             <div class="form-group">
                 <label for="" class="form-label">Foto *</label>
-                <input type="file" class="form-control" name="product_photo" required>
+                <input type="file" class="form-control" name="product_photo">
             </div>
             <div class="form-group">
                 <label for="" class="form-label">Harga</label>

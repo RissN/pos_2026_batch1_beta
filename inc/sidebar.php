@@ -132,7 +132,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="?page=report-sales">
+                            <a href="?page=laporan-penjualan">
                                 <span class="sub-item">Laporan Penjualan</span>
                             </a>
                         </li>

@@ -1,10 +1,10 @@
 <?php
 $today = date('Y-m-d');
-$hariIni = mysqli_query($koneksi, "SELECT count(*) total, SUM(order_amount) omzet FROM orders WHERE DATE(order_date) = '$today' AND order_status= 1 ");
+$hariIni = mysqli_query($koneksi, "SELECT count(*) total, SUM(order_amount) omzet FROM orders WHERE DATE(order_date) = '$today' AND order_status = 1");
 $dataHarian = mysqli_fetch_assoc($hariIni);
-$mingguan = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT count(*) total, SUM(order_amount) omzet FROM orders WHERE YEARWEEK(order_date, 1) = YEARWEEK(CURDATE(), 1 ) AND order_status = 1"));
+$mingguan = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT count(*) total, SUM(order_amount) omzet FROM orders WHERE YEARWEEK(order_date, 1) = YEARWEEK(CURDATE(), 1) AND order_status = 1"));
 
-$bulanan = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT count(*) total, SUM(order_amount) omzet FROM orders WHERE MONTH(order_date, 1) = MONTH(CURDATE()) AND YEAR(order_date) YEAR(CURDATE()) AND order_status = 1"));
+$bulanan = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT count(*) total, SUM(order_amount) omzet FROM orders WHERE MONTH(order_date) = MONTH(CURDATE()) AND YEAR(order_date) = YEAR(CURDATE()) AND order_status = 1"));
 
 ?>
 <h1>INI DASHBOARD</h1>
