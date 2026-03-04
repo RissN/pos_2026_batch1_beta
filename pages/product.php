@@ -22,16 +22,19 @@ if (isset($_GET['idDel'])) {
         <div align="right">
             <a href="?page=tambah-edit-product" class="btn btn-primary my-2">Tambah Produk Baru</a>
         </div>
-        <table class="table table-bordered text-center">
-            <tr>
-                <th>No</th>
-                <th>Kategori</th>
-                <th>Nama Produk</th>
-                <th>Foto</th>
-                <th>Harga</th>
-                <th>Stok</th>
-                <th>Tindakan</th>
-            </tr>
+        <table class="table table-bordered text-center" id="myTable">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Kategori</th>
+                    <th>Nama Produk</th>
+                    <th>Foto</th>
+                    <th>Harga</th>
+                    <th>Stok</th>
+                    <th>Tindakan</th>
+                </tr>
+            </thead>
+            <tbody>
             <?php
             $no = 1;
             foreach ($rowProducts as $v) {
@@ -53,6 +56,7 @@ if (isset($_GET['idDel'])) {
             <?php
             }
             ?>
+            </tbody>
         </table>
     </div>
 </div>

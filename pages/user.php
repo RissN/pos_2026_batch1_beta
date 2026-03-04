@@ -20,13 +20,16 @@ if (isset($_GET['idDel'])) {
         <div align="right">
             <a href="?page=tambah-edit-user" class="btn btn-primary my-2">Buat Pengguna Baru</a>
         </div>
-        <table class="table table-bordered text-center">
-            <tr>
-                <th>No</th>
-                <th>Email</th>
-                <th>Username</th>
-                <th>Tindakan</th>
-            </tr>
+        <table class="table table-bordered text-center" id="myTable">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Tindakan</th>
+                </tr>
+            </thead>
+            <tbody>
             <?php
             $no = 1;
             foreach ($rows as $v) {
@@ -45,6 +48,7 @@ if (isset($_GET['idDel'])) {
             <?php
             }
             ?>
+            </tbody>
         </table>
     </div>
 </div>

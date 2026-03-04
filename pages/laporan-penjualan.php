@@ -19,7 +19,8 @@ $no = 1;
                     <input type="datetime-local" class="form-control" name="end_date" required>
                 </div>
                 <div class="col-2 d-flex align-items-end">
-                    <button type="submit" class="btn btn-danger">Cetak PDF</button>
+                    <button type="submit" name="pdf" class="btn btn-danger">PDF</button>
+                    <button type="submit" name="excel" class="btn btn-success ms-1">Excel</button>
                 </div>
             </div>
         </form>
@@ -38,8 +39,8 @@ $no = 1;
                     <td><?= $no++ ?></td>
                     <td><?= $v['order_code'] ?></td>
                     <td><?= $v['order_date'] ?></td>
-                    <td>Rp. <?= number_format($v['order_pay']) ?></td>
-                    <td>Rp. <?= number_format($v['order_amount']) ?></td>
+                    <td>Rp. <?= number_format($v['order_pay'], 2, ',', '.') ?></td>
+                    <td>Rp. <?= number_format($v['order_amount'], 2, ',', '.') ?></td>
                 </tr>
             <?php
             }
