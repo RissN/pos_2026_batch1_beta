@@ -18,7 +18,9 @@ $no = 1;
                     <label for="" class="form-label">Tanggal Akhir</label>
                     <input type="datetime-local" class="form-control" name="end_date" required>
                 </div>
-                <div class="col-2"></div>
+                <div class="col-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-danger btn-sm">Cetak PDF</button>
+                </div>
             </div>
         </form>
         <table class="table table-bordered">
